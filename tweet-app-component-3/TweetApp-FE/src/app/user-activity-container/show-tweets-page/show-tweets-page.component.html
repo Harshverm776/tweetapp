@@ -1,0 +1,141 @@
+<app-user-side-bar class="top"></app-user-side-bar>
+
+<div *ngIf="showElement" class=" msg mt-1">
+    <div id="alert-dismissible" class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Commented!</strong>
+    </div>
+</div>
+
+<div *ngIf="likedTweetPopup" class=" msg mt-1">
+    <div id="alert-dismissible" class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Liked!</strong>
+    </div>
+</div>
+
+<div *ngIf="disLikedTweetPopup" class=" msg mt-1">
+    <div id="alert-dismissible" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>DisLiked!</strong>
+    </div>
+</div>
+
+<div *ngIf="deleteTweetPopup" class=" msg mt-1">
+    <div id="alert-dismissible" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Deleted!</strong>
+    </div>
+</div>
+
+<div *ngIf="updateTweetPopup" class=" msg mt-1">
+    <div id="alert-dismissible" class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Updated!</strong>
+    </div>
+</div>
+
+<div class="container mt-4">
+
+    <div class="bg-light py-3 mt-4" style="text-align: center;">
+        <h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">My - tweets</h3>
+    </div>
+
+    <div *ngIf="noTweets" class="py-3 mt-4" style="text-align: center;">
+        <h3 class="mt-4">You have no tweets to display!!</h3>
+        <a [routerLink]="['/post']">Post you first tweet :)</a>
+    </div>
+
+
+    <!-- card to display -->
+    <div class="mt-4 shadow p-3 mb-5 bg-white rounded card" *ngFor="let tweet of tweets; index as i;">
+        <div class="row card-title">
+            <h5 class="col-4" style="margin-top: 10px; font-size: 13px;"><i style="font-size: 20px; color: blue;"
+                    class="mr-2 bi bi-clock"></i>{{tweet.tweetDate}}</h5>
+            <h5 class="col-7 middle-1 text-center" style="margin-top: 10px;"></h5>
+            <h5 class="col-6 middle-2 text-center" style="margin-top: 10px;"></h5>
+            <!-- drop down for link -->
+            <div class="col-1 dropdown">
+                <button class="btn dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown">
+                    <i class="bi bi-three-dots-vertical"></i>
+                </button>
+                <div class="bg-light  dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                    <button (click)="deleteTweet(tweet.tweetId)" type="submit"
+                        class="btn  del dropdown-item text-center">Delete<i class="ml-1 bi bi-trash"
+                            style="font-size: 20px; border: none; outline: none;"></i></button>
+                    <button (click)="editTweet(tweet.tweetId)" type="submit" class="btn  edit dropdown-item text-center"
+                        data-toggle="modal" data-target="#exampleModalCenter">Edit<i class="ml-1 bi bi-pencil-fill"
+                            style="font-size: 20px; border: none; outline: none;"></i></button>
+                </div>
+            </div>
+            <!-- del button -->
+            <!-- <button (click)="deleteTweet(tweet.tweetId)" type="submit" class="btn  col-2 text-right"><i class="bi bi-trash"  style="color: red; font-size: 20px; border: none; outline: none;"></i></button> -->
+        </div>
+        <div class="card-body text-center">
+            <p class="card-text mb-4">{{tweet.tweetText}}</p>
+        </div>
+        <div class="card-footer bg-blue">
+            <div class="row text-center card-text">
+                <a *ngIf="!tweet.likeStatus" class="col-4" (click)="likeTweet(tweet.tweetId)"><i
+                        class="bi bi-hand-thumbs-up" style="font-size:20px;"></i>{{tweet.likesCount}}</a>
+                <a *ngIf="tweet.likeStatus" (click)="disLikeTweet(tweet.tweetId)" class="col-4"><i
+                        class="bi bi-hand-thumbs-up-fill" style="font-size:20px;"></i>{{tweet.likesCount}}</a>
+                <!-- <button style="color: white;" *ngIf="!enableLikeButton"class="btn col-4"><i class="bi bi-hand-thumbs-up"style="color:white; font-size:20px;"></i>{{tweet.likesCount}}</button> -->
+                <a class="col-4">
+                    <!-- <i class="bi bi-hand-thumbs-down"  style="font-size:20px;"></i>3 -->
+                </a>
+                <button style="color: white;" class="btn col-4"><i (click)="isReplyClicked(i)"
+                        class="bi bi-chat-left-text" style="font-size:20px;"></i>{{tweet.commentsCount}}</button>
+            </div>
+        </div>
+        <label class="mb-0 text-sm" *ngIf="clickedReplyButton[i]">Replies</label>
+        <!-- <p *ngIf="noComments[i]" class="ml-1 col-12 text-center">No comments !</p> -->
+        <div *ngIf="clickedReplyButton[i]" id="style-2" class="scroll mt-3">
+            <div *ngFor="let com of tweet.comments" class="row">
+                <p class="ml-1 col-5">
+                    {{com.username}}
+                </p>
+                <p class="col-6" style="background-color: whitesmoke;">{{com.comment}}</p>
+            </div>
+        </div>
+        <hr *ngIf="clickedReplyButton[i]" />
+        <form class="formgroup" *ngIf="clickedReplyButton[i]" [formGroup]="myFormGroup"
+            (ngSubmit)="replyTweet(tweet.tweetId)">
+            <textarea class="mb-1 form-control" id="textarea" [formControl]="myFormGroup.controls['reply']"
+                placeholder="Write your comment , it should less than 144 charcters!!" name="reply" maxlength="144"
+                rows="2"></textarea>
+            <button type="submit" class="form-group form-control bg-blue btn btn-blue btn-primary cmt"> Comment <i
+                    class="bi bi-chat-left-text"></i></button>
+        </form>
+
+    </div>
+    <app-user-scroll-top></app-user-scroll-top>
+
+
+    <!-- Modal -->
+    <div *ngIf="showModel">
+        <div *ngIf="showModel" class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Update Tweet</h5>
+                    </div>
+                    <div style="text-align: center;">
+                        <p *ngIf="tweetEmpty"><b style="color: red;">Tweet</b> can't be empty !</p>
+                    </div>
+                    <div class="modal-body">
+                        <textarea class="text-area" #textarea (keyup)="tweetLengthValidationMethod(textarea)"
+                            id="textarea" maxlength="145" name="textarea" rows="3">{{tweetTex}}</textarea>
+                        <div *ngIf="showTweetLength">
+                            <p *ngIf="showTweetRed"><b style="color: red;">145 </b> characters length completed</p>
+                            <p *ngIf="!showTweetRed"><b>{{remainingTweetLength}} </b>characters remaining!!</p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" (click)="closeUpdateTweet(textarea)" class="btn btn-secondary"
+                            data-dismiss="modal">Close</button>
+                        <button type="button" (click)="updateTweet(textarea , singleTweet.tweetId)" data-dismiss="modal"
+                            class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,81 @@
+<app-user-side-bar class="top"></app-user-side-bar>
+
+<div *ngIf="showElement" class="msg mt-1" style="text-align: center;">
+    <div id="alert-dismissible" class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Commented!</strong>
+    </div>
+</div>
+
+<div *ngIf="likedTweetPopup" class=" msg mt-1">
+    <div id="alert-dismissible" class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Liked!</strong>
+    </div>
+</div>
+<div *ngIf="disLikedTweetPopup" class=" msg mt-1">
+    <div id="alert-dismissible" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>DisLiked!</strong>
+    </div>
+</div>
+
+<div class="container">
+    <div class="bg-light py-3 mt-4" style="text-align: center;">
+        <p>Showing tweets of</p>
+        <h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">{{searchedUserTweets}}
+        </h3>
+        <a *ngIf="!noTweets" [routerLink]="['/users']">Go back to search users ?</a>
+    </div>
+
+    <div *ngIf="noTweets" class="py-3 mt-4" style="text-align: center;">
+        <h3 class="mt-4">User has no tweets to display!!</h3>
+        <a [routerLink]="['/users']">Go back to search users ?</a>
+    </div>
+
+
+    <!-- card to display -->
+    <div class="mt-4 shadow p-3 mb-5 bg-white rounded card" *ngFor="let tweet of tweets; index as i">
+        <div class="row card-title">
+            <h5 class="col-4" style="margin-top: 10px; font-size: 13px;"><i style="font-size: 20px; color: blue;"
+                    class="mr-2 bi bi-clock"></i>{{tweet.tweetDate}}</h5>
+            <h5 class="col-4 text-center" style="margin-top: 10px;"></h5>
+            <!-- <button class="btn col-4 text-right"><i class="bi bi-trash"  style="color: red; font-size: 20px;"></i></button> -->
+        </div>
+        <div class="card-body text-center">
+            <p class="card-text mb-4">{{tweet.tweetText}}</p>
+        </div>
+        <div class="card-footer bg-blue">
+            <div class="row text-center card-text">
+                <a *ngIf="!tweet.likeStatus" (click)="likeTweet(tweet.tweetId)" class="col-4"><i
+                        class="bi bi-hand-thumbs-up" style="font-size:20px;"></i>{{tweet.likesCount}}</a>
+                <a *ngIf="tweet.likeStatus" (click)="disLikeTweet(tweet.tweetId)" class="col-4"><i
+                        class="bi bi-hand-thumbs-up-fill" style="font-size:20px;"></i>{{tweet.likesCount}}</a>
+                <a class="col-4">
+                    <!-- <i class="bi bi-hand-thumbs-down"  style="font-size:20px;"></i>3 -->
+                </a>
+                <a class="col-4"><i (click)="isReplyClicked(i)" class="bi bi-chat-left-text"
+                        style="font-size:20px;"></i>{{tweet.commentsCount}}</a>
+            </div>
+        </div>
+        <label class="mb-0 text-sm" *ngIf="clickedReplyButton[i]">Replies</label>
+        <!-- <p *ngIf="noComments[i]" class="ml-1 col-12 text-center">No comments !</p> -->
+        <div style="background-color:lightgray;" *ngIf="clickedReplyButton[i]" id="style-2" class=" scroll mt-3">
+            <div *ngFor="let com of tweet.comments" class="row">
+                <p class="ml-1 col-5">
+                    <b>{{com.username}}</b>
+                </p>
+                <p class="col-6" style="background-color: whitesmoke;">{{com.comment}}</p>
+            </div>
+        </div>
+        <hr *ngIf="clickedReplyButton[i]" />
+        <form class="formgroup" *ngIf="clickedReplyButton[i]" [formGroup]="myFormGroup"
+            (ngSubmit)="replyTweet(tweet.tweetId)">
+            <textarea class="mb-1 form-control" id="textarea" [formControl]="myFormGroup.controls['reply']"
+                placeholder="Write your comment , it should less than 144 charcters!!" name="reply" maxlength="144"
+                rows="2"></textarea>
+            <button type="submit" class="form-group form-control bg-blue btn btn-blue btn-primary cmt"> Comment <i
+                    class="bi bi-chat-left-text"></i></button>
+        </form>
+
+    </div>
+
+    <app-user-scroll-top></app-user-scroll-top>
+</div>

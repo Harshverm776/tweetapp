@@ -1,0 +1,20 @@
+Start Zookeeper
+.\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
+
+Start Server
+.\bin\windows\kafka-server-start.bat .\config\server.properties
+
+create Topic
+.\bin\windows\kafka-topics.bat --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic Random
+
+Describe topic
+.\bin\windows\kafka-topics.bat --bootstrap-server localhost:9092 --topic Random --describe
+
+List all the topics
+.\bin\windows\kafka-topics.bat --bootstrap-server localhost:9092 --list
+
+Start producer and send message
+C:\New_folder\kafka_2.12-2.1.0\bin\windows\kafka-console-producer.bat --topic first_topic --bootstrap-server localhost:9092
+
+Start consumer and receive message
+C:\New_folder\kafka_2.12-2.1.0\bin\windows\kafka-console-consumer.bat --topic first_topic --bootstrap-server localhost:9092

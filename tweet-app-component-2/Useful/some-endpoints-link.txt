@@ -1,0 +1,21 @@
+# swagger
+http://localhost:8081/v3/api-docs
+http://localhost:8081/swagger-ui.html
+
+# elasticsearch
+http://localhost:9200/
+http://localhost:9200/_cat
+http://localhost:9200/_cat/indices
+http://localhost:9200/logstash-2022.04.24-000001/_search
+
+# kibana
+http://localhost:5601/
+
+# logstash
+http://localhost:9600/
+
+# Prometheus
+http://localhost:9090/
+
+# Grafana
+http://localhost:3000/

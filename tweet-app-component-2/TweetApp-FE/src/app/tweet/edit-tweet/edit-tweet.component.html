@@ -1,0 +1,20 @@
+<div class="card">
+    <div class="card-body">
+        <form ngNativeValidate (ngSubmit)="postTweet()">
+            <div class="form-group">
+                <label for="comment"><h4 class="text-blue">Post Tweet</h4></label>
+                <textarea  name="tweetText" id="tweetText" [(ngModel)]="tweetText" required class="form-control" rows="4" ></textarea>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-4" *ngIf='isTag'>
+                  <textarea  name="tags" id="tags" [(ngModel)]="tags" required class="form-control" rows="2" ></textarea></div>
+                <div class="form-group col-md-4">
+            <h5 (click) = 'addTags()' style="border: 4px; padding: 2px;">add tag</h5></div>
+            
+          </div>
+              <hr>
+            <button type="submit" class="btn btn-primary" style="background-color: green;">Update</button>
+          </form>
+    </div>
+  </div>
+  

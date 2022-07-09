@@ -1,0 +1,8 @@
+# Elasticsearch
+elasticsearch.bat
+
+# Kibana
+kibana.bat
+
+# Logstash
+logstash.bat -f logstash.conf

@@ -1,0 +1,85 @@
+<form ngNativeValidate (ngSubmit)="search()">
+  <div class="form-row align-items-center">
+    <div class="col-sm-3 my-1">
+      <label class="sr-only" for="inlineFormInputGroupUsername">Username</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">@</div>
+        </div>
+        <input type="text" class="form-control"[(ngModel)]="searchId" name ="searchId" id="searchId" placeholder="User Id">
+      </div>
+    </div>
+    
+    <div class="col-auto my-1">
+      <button type="submit" class="btn btn-primary">search</button>
+    </div>
+  </div>
+</form>
+
+
+
+<div *ngFor = "let tweetData of tweets">
+  <div class="card">
+      <div class="card-header">
+        By: {{tweetData.userId}} , {{tweetData.time}}
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Tweet</h5>
+        <p class="card-text">{{tweetData.tweetText}}</p>
+      <!-- reply  form div section -->
+        <div  *ngIf = "replyform && unitId === tweetData.tweetId" > 
+          <form ngNativeValidate (ngSubmit)="postreply(tweetData.tweetId)">
+            <div class="form-group">
+                <label for="comment"><h4 class="text-blue">Add Reply</h4></label>
+                <textarea  name="replyText" id="replyText" [(ngModel)]="replyText" required class="form-control" rows="4" ></textarea>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-4" *ngIf='isTag'>
+                  <textarea  name="tags" id="tags" [(ngModel)]="tags" required class="form-control" rows="2" ></textarea></div>
+                <div class="form-group col-md-4">
+            <button class="btn btn-primary" (click) = addTags()>Add tags#</button></div>
+            
+          </div>
+              <hr>
+            <button type="submit" class="btn btn-primary" style="background-color: green;">Reply</button>
+          </form>
+        </div>
+        <!-- reply form div ends -->
+        <p *ngIf="likeId===tweetData.tweetId" style="color: green;">Liked</p>
+
+        <!-- buttons divs -->
+        <div *ngIf = !replyform>
+        <div>
+       <span> <a  class="btn btn-primary" (click)="like(tweetData.tweetId)">Like</a><button class="btn btn-primary"  style="margin-left: 10px;" (click)="viewReply(tweetData)">View Reply</button>
+       
+        <button class="btn btn-primary" *ngIf="editId === tweetData.userId" style="margin-left: 10px; background-color: yellow;color: black;" (click)="editTweet(tweetData)">Edit Tweet</button>
+        <button class="btn btn-primary" style="margin-left: 10px;" (click)="addReply(tweetData.tweetId)">Add Reply</button>
+      </span>
+      </div>
+
+      <!-- button div ends -->
+      <!-- reply show box -->
+      <div class="card" style="background-color:ivory" *ngIf="expand">
+       <div *ngIf = "unitId === tweetData.tweetId">
+          <h5 class="card-title"  >Replies</h5>
+          <div class="card-body"  *ngFor = "let reply of replies" >
+            <div >
+            <div >
+            <h6>Replied by: @{{reply.userID}}</h6>
+            Time: {{reply.replyTime}}
+            <h5>Reply</h5>
+            <h6>{{reply.replyText}}</h6>
+          </div>
+         </div>
+        </div>
+      </div>
+          </div>
+  
+          </div>
+          
+          <!-- reply show box ends -->
+       
+    </div>
+      
+    </div>
+  </div>

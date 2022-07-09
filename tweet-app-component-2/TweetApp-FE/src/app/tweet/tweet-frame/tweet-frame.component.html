@@ -1,0 +1,31 @@
+<div class="container-fluid">
+<div class="row">
+    <div class="col-3">
+        <app-user-profile></app-user-profile>
+    </div>
+    <div class="col-9 container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item innerNav ">
+                    <a class="navbar-brand pointer" (click)="openFeed()">Feed</a>                </li>
+                <li class="nav-item innerNav ">
+                    <a class="navbar-brand pointer" (click)="openPostTweet()">Post-Tweet</a>                </li>
+                <li class="nav-item innerNav ">
+                    <a class="navbar-brand pointer" (click)="openViewAllUsers()">View-all-Users</a>                </li>
+                <li class="nav-item innerNav">
+                    <a class="navbar-brand pointer"(click)="openYourTweets()">Your-tweets</a>
+                </li>
+                <li class="nav-item innerNav">
+                    <a class="navbar-brand pointer" (click)="openOtherUserTweets()">Other Users Tweets</a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+      
+       <div class="mt-5">
+        <router-outlet></router-outlet>
+    </div>
+    </div>
+</div>
+</div>

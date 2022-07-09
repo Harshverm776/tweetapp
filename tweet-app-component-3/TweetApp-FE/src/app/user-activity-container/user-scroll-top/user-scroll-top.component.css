@@ -1,0 +1,31 @@
+.scroll-to-top {
+    position: fixed;
+    bottom: 50px;
+    right: 30px;
+    opacity: 0;
+    transition: all .2s ease-in-out;
+   }
+   .show-scrollTop {
+    opacity: 1;
+    transition: all .2s ease-in-out;
+   }
+
+   .bi-arrow-up-circle-fill{
+       font-size: 40px;
+   }
+   
+
+@media only screen and (max-width: 600px) {
+    .scroll-to-top {
+        position: fixed;
+        bottom: 7px;
+        /* right: 50px; */
+        margin-right: 3px;
+        opacity: 0;
+        transition: all .2s ease-in-out;
+       }
+       .show-scrollTop {
+        opacity: 1;
+        transition: all .2s ease-in-out;
+       }
+}

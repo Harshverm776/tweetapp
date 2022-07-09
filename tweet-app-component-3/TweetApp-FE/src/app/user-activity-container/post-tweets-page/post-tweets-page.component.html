@@ -1,0 +1,51 @@
+<app-user-side-bar class="top"></app-user-side-bar>
+
+<div class="container-fluid login px-1 px-md-5 px-lg-1 px-xl-5 mt-4 py-5 mx-auto">
+    
+    <div *ngIf="showElement"  class=" msg mt-1">
+        <div  id="alert-dismissible" class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Tweeted!</strong>
+        </div>
+    </div>
+    
+    <div class="card card0 border-0">
+
+        <div class="bg-light py-3" style="text-align: center;">
+          
+            <h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Post your tweet</h3>
+        </div>
+      
+       
+        <div class="row d-flex">
+            <div class="col-lg-3">
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card2 card border-0 px-4 py-5">
+                    <!-- <p *ngIf="tweetLengthExceeded" style="color: red; text-transform: capitalize;font-size: 14px;letter-spacing: 1px"><b>Tweet</b> should be less than 143 characters </p>
+                    <p *ngIf="tagLengthExceeded" style="color: red; text-transform: capitalize;font-size: 14px;letter-spacing: 1px"><b>Tag</b> should be less than 50 characters </p> -->
+                    <form class="formgroup" [formGroup]="myFormGroup" (ngSubmit)="postTweet()">
+                        <div style="text-align: center;">
+                            <p *ngIf="tweetEmpty"><b  style="color: red;">Tweet</b> can't be empty !</p>
+                        </div>
+                        <div class="row px-3"> 
+                            <label class="mb-1">                                
+                            <h6 class="mb-0 text-sm">Tweet Description <i class="bi bi-pencil-square"></i></h6>
+                            </label> 
+                            <textarea class="text-area mb-0 form-control" [formControl]="myFormGroup.controls['tweet']" (keyup) ="tweetLengthValidationMethod()" id="textarea" placeholder="Should less than 145 charcters!!" maxlength="145" name="textarea" rows="3"></textarea>
+                            <div *ngIf="showTweetLength">
+                                <p *ngIf="showTweetRed"><b  style="color: red;">145 </b> characters length completed</p>
+                                <p *ngIf="!showTweetRed"><b >{{remainingTweetLength}} </b>characters remaining!!</p>
+                            </div>
+                        </div>
+
+                    
+                        <div class="row mb-3 mt-1 px-3"> 
+                            <button type="submit" class="form-group form-control btn-blue text-center">Post Tweet<i class="ml-2 bi bi-inboxes"></i></button> 
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+</div>
+</div>

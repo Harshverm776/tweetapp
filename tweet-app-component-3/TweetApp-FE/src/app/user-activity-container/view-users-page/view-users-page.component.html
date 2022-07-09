@@ -1,0 +1,45 @@
+<app-user-side-bar class="top" ></app-user-side-bar>
+<div class="container" >
+    <div class="bg-light py-3 mt-4" style="text-align: center;">
+        <h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Users</h3>
+        
+    </div>
+    <form [formGroup]="myFormGroup" class="form-inline mt-4 mb-4 mr-auto" (ngSubmit)="search()">
+        <input class="form-control search-input mr-auto" type="search" (keyup)="enableSearchButton()" [formControl]="myFormGroup.controls['search']"  placeholder="Search User" aria-label="Search">
+        <button *ngIf="!enableButtonForSearch" class="btn search btn-secondary mr-1" disabled type="submit"><b class="search-text">Search</b><i class="ml-1 bi bi-search"></i></button>
+        <button *ngIf="enableButtonForSearch"class="btn search bg-blue btn-outline-success mr-1" type="submit"><b class="search-text">Search</b><i class="ml-1 bi bi-search"></i></button>
+    </form>
+      <p *ngIf="showSearchedText">You have searched for : <b>{{searchedText}}</b></p>
+   <div>
+
+    <table class="table table-striped btn-table">
+
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Username</th>
+            <th>View Tweets</th>
+          </tr>
+        </thead>
+        
+        
+        <tbody *ngFor="let names of userModel; index as i">
+          <tr>
+            <th scope="row">{{i+1}}</th>
+            <td>{{names.username}}</td>
+            <td>
+              <button style="font-size: 15px;" type="button" class="btn bg-blue btn-sm m-0" 
+              (click)="getDetails(names.username)">
+                <i class="bi bi-cloud-arrow-down-fill mr-2" style="font-size: 20px;"></i>Load</button>
+            </td>          
+          </tr>
+  
+        </tbody>
+        
+        </table>
+      </div>
+      <div *ngIf="noUsersToDisplay" class="row text-center">
+        <h3 class="col-12">No users to display!!</h3>
+      </div>
+        <app-user-scroll-top></app-user-scroll-top>
+</div>

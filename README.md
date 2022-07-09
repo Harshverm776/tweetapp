@@ -1,2 +1,2 @@
 # tweetapp
-Tweeter like application.
+Twitter like application.

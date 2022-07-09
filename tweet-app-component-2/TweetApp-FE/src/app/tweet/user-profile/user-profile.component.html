@@ -1,0 +1,12 @@
+<div class="card sticky-top" *ngIf='displayUser' style="width: 18rem;">
+    <img src="assets/images/user.png"  width="50" height="200" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">{{displayUser.firstName}}</h5>
+      <small>@{{displayUser.userId}}</small>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">{{displayUser.email}}</li>
+      <button  class="btn logout" (click) = "logout()"><h6 style="color: 'white';">logout</h6></button>
+
+    </ul>
+  </div>

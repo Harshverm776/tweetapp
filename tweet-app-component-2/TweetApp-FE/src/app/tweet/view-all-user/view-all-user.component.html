@@ -1,0 +1,22 @@
+<table class="table table-hover" >
+    <thead>
+      <tr>
+        
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Handle</th>
+        <th scope="col">email</th>
+        <th scope="col">contact</th>
+      </tr>
+    </thead>
+    <tbody *ngFor ="let user of users">
+      <tr>
+        <td>{{user.firstName}}</td>
+        <td>{{user.lastName}}</td>
+        <td>{{user.userId}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.contactNumber}}</td>
+      </tr>
+     
+    </tbody>
+  </table>

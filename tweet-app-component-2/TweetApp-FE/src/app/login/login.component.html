@@ -1,0 +1,31 @@
+ 
+
+  <div class="card mb-3" style="max-width: 540px;">
+    <div class="row no-gutters">
+      <div class="col-md-4">
+        <img src="assets/images/icon.png"  width="100" height="100" alt="...">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+            <h4 class="card-title text-blue">Log in</h4>
+            <hr>
+            <form ngNativeValidate (ngSubmit)="validateLogin()">
+              <div class="form-group">
+                <label for="exampleInputEmail1">User Id</label>
+                <input type="text" class="form-control" name="userId" id="userId" [(ngModel)]="userId" required>              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" class="form-control"  name="password" id="password" [(ngModel)]="password" required>
+                <small (click)="forgotPassword()">Forgot password</small>
+              </div>
+              <br>
+              <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+            <small *ngIf = 'inValidLogin' style="color: red;">Invalid credentials</small>
+            <hr>
+            
+        </div>
+        <small>New user register here <a style="text-decoration: blue underline;color: red;" (click)="registerPage()">Register Now !</a></small>
+      </div>
+    </div>
+  </div>

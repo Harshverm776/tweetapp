@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: TweetApplication
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: tweetapp    
+server.port: 8081
+logging:
+  file:
+    name:  C:/logs/elk-stack.log
